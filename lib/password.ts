@@ -18,7 +18,7 @@ const POOLS = {
 
 function filterAmbiguous(pool: string, avoidAmbiguous: boolean) {
   if (!avoidAmbiguous) return pool;
-  return [...pool].filter((char) => !AMBIGUOUS.has(char)).join("");
+  return pool.split("").filter((char) => !AMBIGUOUS.has(char)).join("");
 }
 
 export function getPools(options: PasswordOptions) {
@@ -73,7 +73,7 @@ export function createPassword(options: PasswordOptions) {
 }
 
 export function getEntropyBits(options: PasswordOptions) {
-  const alphabetSize = new Set(getPools(options).join("")).size;
+  const alphabetSize = new Set(getPools(options).join("").split("")).size;
   if (alphabetSize === 0) return 0;
   return Math.round(options.length * Math.log2(alphabetSize));
 }
